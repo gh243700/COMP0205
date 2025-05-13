@@ -1,6 +1,6 @@
 import speech_recognition as sr
 import whisper
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from gtts import gTTS
 import os
 
@@ -25,7 +25,7 @@ def transcribe_audio(file_path):
 
 
 def translate_text(text, src_lang='en', tgt_lang='ko'):
-    translator = Translator()
+    translator = GoogleTranslator()
     translated = translator.translate(text, src=src_lang, dest=tgt_lang)
     print("🌐 Translated:", translated.text)
     return translated.text
