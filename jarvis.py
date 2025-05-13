@@ -5,7 +5,7 @@ import soundfile as sf
 import numpy as np
 import whisper
 from vosk import Model, KaldiRecognizer
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from gtts import gTTS
 
 # Settings
@@ -59,12 +59,12 @@ def transcribe(file_path):
 
 # 4. Translate with googletrans
 def translate_text(text):
-    translator = Translator()
+    translator = GoogleTranslator(source='ko', dest = 'en')
     if any(char in text for char in "가나다라마바사"):  # crude Korean check
-        result = translator.translate(text, src='ko', dest='en')
+        result = translator.translate(text)
         return result.text, 'en'
     else:
-        result = translator.translate(text, src='en', dest='ko')
+        result = translator.translate(text)
         return result.text, 'ko'
 
 # 5. Speak with gTTS
