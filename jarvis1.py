@@ -48,7 +48,9 @@ def listen_for_trigger_and_save():
 
     full_audio = np.concatenate(audio_data)
     sf.write("input.wav", full_audio, SAMPLE_RATE)
-    return "input.wav"
+    duration_seconds = len(full_audio) / SAMPLE_RATE
+    print(f"⏱️ Recording duration: {duration_seconds:.2f} seconds")
+    return "input.wav",duration_seconds
 
 # 3. Transcribe audio with Whisper
 def transcribe(file_path):
@@ -75,7 +77,8 @@ def speak(text, lang):
 
 # 6. Main logic
 def main():
-    audio_path = listen_for_trigger_and_save()
+    audio_path,duration = listen_for_trigger_and_save()
+    print(f"Recording duration (in main): {duration:.2f} seconds")  
     original = transcribe(audio_path)
 
     # Remove everything from "stop" onward
